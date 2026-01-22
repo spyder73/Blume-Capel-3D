@@ -1,97 +1,136 @@
 # Blume-Capel-3D
-This code is able to simulate the Blume-Capel Model in 3D.
 
-It can also, if chosen as e.g. D = -1000, simulate the Ising model, since for D -> -inf, the model converges to the Ising Model.
+A Monte Carlo simulation program for the Blume-Capel Model in three dimensions.
 
-The parameters, which the user should input in the console are:
+## Overview
 
-#INT > 0
+This code simulates the **Blume-Capel Model in 3D**. It can also simulate the **Ising model** by setting `D = -1000` (or any large negative value), since for `D → -∞`, the Blume-Capel model converges to the Ising Model.
 
-size: size of the (3D) lattice
+---
 
-#INT > 0
+## Input Parameters
 
-#Recommendation for testing: 10000
+The program requires the following parameters to be entered via console:
 
-n_steps: Amount of Monte Carlo Steps
+### Lattice Size
+- **Type:** `INT > 0`
+- **Description:** Size of the 3D lattice
 
-#INT > 0 && n_steps % N_Bin == 0
+### Monte Carlo Steps
+- **Type:** `INT > 0`
+- **Recommendation for testing:** `10000`
+- **Description:** Number of Monte Carlo steps to perform
 
-#Recommendation for testing: 100
+### Number of Bins
+- **Type:** `INT > 0` where `n_steps % N_Bin == 0`
+- **Recommendation for testing:** `100`
+- **Description:** Number of bins used in the Jackknife routine
 
-N_bin: Amount of Bins, used in the Jackknife routine
+### Model Selection
 
-#Choose whether you want the Ising Model or Blume-Capel model
+Choose between the **Blume-Capel** or **Ising** model:
 
-BC: ß_c = 0.387721735, D = 0.655
+#### Blume-Capel (BC)
+- `β_c = 0.387721735`
+- `D = 0.655`
+- You can optionally change the value of `D`
 
-I: ß_c = 0.22165463
+#### Ising (I)
+- `β_c = 0.22165463`
 
-If you choose the BC model, you can also decide to change the 'D'.
+### High Temperature Mode
 
-There is also the possibility to change the temperature to a high temperature (for example ß = 0.1).
+You can set a high temperature (e.g., `β = 0.1`). When enabled, the program will:
+- Calculate the high-temperature expansion of the susceptibility for the BC model at `D = 0.641`
+- Provide both the calculated value and a comparison to the measured value from the MC simulation
 
-Then the program will calculate the high-temperature expansion of the susceptibility of the BC model at D = 0.641
+---
 
-and give you the value & comparison to the measured value from the MC simulation at the end.
+## Boundary Conditions
 
-###BOUNDARY CONDITIONS
+The program supports two types of boundary conditions for correlation calculations:
 
-This program can only calculate the correlations for the two following cases:
+### 1. Periodic Boundary Conditions Only
 
-###ONLY PERIODIC BOUNDARY CONDITIONS
+**Selection:** Choose `'P'`
 
-This is when you choose 'P'.
-Then all directions will have periodic boundary conditions and the Correlation function
-inside the bulk, (bulk-bulk) will be calculated.
+- All directions will have periodic boundary conditions
+- Correlation function inside the bulk (bulk-bulk) will be calculated
+- **Recommended for:**
+  - High-temperature susceptibility expansion comparison
+  - Ising model calculations
+  - Binder Cumulant calculations
 
---> Choose this option if you want to calculate the high-temp-susceptibility-expansion comparison and it makes sense to always choose this for the Ising model as well.
-Generally if you are interested in calculating the Binder Cumulant, choose this option.
+### 2. Open Boundary Conditions
 
+**Selection:** Choose `'o'`
 
-###OPEN BOUNDARY CONDITIONS
+You can specify which directions have periodic boundary conditions. Correlations will only be calculated for surfaces in ±z direction.
 
-This is when you choose 'o'. 
-Here you can decide which directions should have periodic boundary conditions, and which not.
-
-Correlations will only be calculated for the case of surfaces in +/- z direction. 
-
-That means to DISABLE periodic boundary conditions in +/-z direction you enter the following when asked:
-
+**To disable periodic boundary conditions in ±z direction, enter:**
+```
 +x = 1
-
 -x = 1
-
 +y = 1
-
 -y = 1
-
 +z = 0
-
 -z = 0
+```
 
-1 == PERIODIC boundary conditions are turned ON
+**Legend:**
+- `1` = Periodic boundary conditions **ON**
+- `0` = Periodic boundary conditions **OFF** (Open boundary conditions)
 
-0 == PERIODIC boundary conditions are turned OFF --> OPEN BOUNDARY CONDITIONS
+---
 
+## External Field
 
-#External Field
+**Prompt:** Do you want an external field `h ≠ 0`?
 
-Do you want an external field h != 0?
+- Select **Yes** to enable
+- Choose a value for the external field strength
 
-Then enter Yes, and chose a value.
+---
 
+## Additional Observables
 
-#Other Observables(Y/N):
+**Prompt:** Calculate other observables? (Y/N)
 
-Choose 'Y' if you want to calculate the Magnetization, Susceptibility and the Binder Cumulant.
+Choose `'Y'` to calculate:
+- Magnetization
+- Susceptibility
+- Binder Cumulant
 
-This is on by default, if you calculate the high-temp-expansion...
+> **Note:** This is enabled by default when calculating the high-temperature expansion.
 
-------------------------------------------------------------------------------------------------------------------------------------
+---
 
-This program will always calculate correlations if the above described boundary conditions are chosen.
+## Important Notes
 
-These may not always generate meaningful results if for example the temperature is changed, the magnetic field is on...!
+⚠️ **Correlation Functions:**
+This program will always calculate correlations when the boundary conditions described above are chosen. These correlations may not generate meaningful results in certain scenarios, such as:
+- When temperature is changed
+- When magnetic field is enabled
+- Other non-standard configurations
 
+---
 
+## Usage
+
+1. Run the program
+2. Follow the console prompts to input parameters
+3. The simulation will execute and output results based on your configuration
+
+---
+
+## License
+
+_Add your license information here_
+
+## Contributing
+
+_Add contributing guidelines here_
+
+## Authors
+
+_Add author information here_
